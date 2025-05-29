@@ -13,8 +13,9 @@ jobs:
           version: 8        # 跟原 repo 相容即可
 
       # 安裝依賴
-      - name: Install deps
-        run: pnpm install --frozen-lockfile
+        - name: Install deps
+          run: pnpm install --no-frozen-lockfile
+
 
       # 編譯 editor-ui
       - name: Build
