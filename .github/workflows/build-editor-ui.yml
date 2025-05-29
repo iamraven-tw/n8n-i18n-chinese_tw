@@ -1,0 +1,28 @@
+name: build-editor-ui
+on:
+  workflow_dispatch:       # 手動觸發
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      # 安裝 pnpm
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8        # 跟原 repo 相容即可
+
+      # 安裝依賴
+      - name: Install deps
+        run: pnpm install --frozen-lockfile
+
+      # 編譯 editor-ui
+      - name: Build
+        run: pnpm run build:editor-ui
+
+      # 上傳打包結果
+      - name: Upload dist
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: packages/editor-ui/dist
